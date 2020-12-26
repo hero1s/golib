@@ -1,0 +1,20 @@
+{
+  "proxy_host": [{
+    "upstream": "http://www.baidu.com",
+    "up_host": "",
+    "path": "/baidu/",
+    "trim_path": true,
+    "is_auth": true,
+    "auth_key": "123"
+  },
+    {
+      "upstream": "http://www.aliyun.com",
+      "up_host": "",
+      "path": "/ali/",
+      "trim_path": true,
+      "is_auth": false,
+      "auth_key": "321"
+    }
+  ],
+  "server_port": "0.0.0.0:8088"
+}

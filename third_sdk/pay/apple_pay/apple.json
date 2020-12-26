@@ -1,0 +1,41 @@
+{ 
+  "status":0, 
+  "environment":"Sandbox", 
+  "receipt":{
+    "receipt_type":"ProductionSandbox",
+    "adam_id":0,
+    "app_item_id":0,
+    "bundle_id":"com.wayou.jujuadult",
+    "application_version":"1",
+    "download_id":0, 
+    "version_external_identifier":0,
+
+    "receipt_creation_date":"2018-06-09 03:40:19 Etc/GMT",
+    "receipt_creation_date_ms":"1528515619000",
+    "receipt_creation_date_pst":"2018-06-08 20:40:19 America/Los_Angeles",
+
+    "request_date":"2018-06-09 03:40:29 Etc/GMT", 
+    "request_date_ms":"1528515629243",
+    "request_date_pst":"2018-06-08 20:40:29 America/Los_Angeles",
+
+    "original_purchase_date":"2013-08-01 07:00:00 Etc/GMT",
+    "original_purchase_date_ms":"1375340400000",
+    "original_purchase_date_pst":"2013-08-01 00:00:00 America/Los_Angeles",
+    "original_application_version":"1.0",
+    "in_app":[
+      {
+        "quantity":"1",
+        "product_id":"2",
+        "transaction_id":"1000000406035616",
+        "original_transaction_id":"1000000406035616",
+        "purchase_date":"2018-06-09 03:40:19 Etc/GMT",
+        "purchase_date_ms":"1528515619000",
+        "purchase_date_pst":"2018-06-08 20:40:19 America/Los_Angeles",
+        "original_purchase_date":"2018-06-09 03:40:19 Etc/GMT",
+        "original_purchase_date_ms":"1528515619000",
+        "original_purchase_date_pst":"2018-06-08 20:40:19 America/Los_Angeles",
+        "is_trial_period":"false"
+      }
+    ]
+  }
+}
