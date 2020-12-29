@@ -2,9 +2,10 @@ package diff
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
-	"github.com/hero1s/golib/tools/qbtool/cmd/base"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/hero1s/golib/tools/qbtool/cmd/base"
 	"os"
 	"path/filepath"
 	"sort"
@@ -288,6 +289,23 @@ func RunDiff(source, target, path string) error {
 		targetTableMap[table.TableName] = table
 	}
 
+	// 获取源数据库collation跟character set的对应关系
+	sourceCharset, err := sourceDb.Query("SELECT `COLLATION_NAME`, `CHARACTER_SET_NAME`" +
+		"FROM `information_schema`.`COLLATION_CHARACTER_SET_APPLICABILITY`")
+
+	if err != nil {
+		return err
+	}
+	var sourceCharsetMap = make(map[string]string)
+	for sourceCharset.Next() {
+		var charset, collation string
+		err := sourceCharset.Scan(&collation, &charset)
+		if err != nil {
+			return err
+		}
+		sourceCharsetMap[collation] = charset
+	}
+
 	var diffSql []string
 
 	// DROP TABLE...
@@ -297,7 +315,53 @@ func RunDiff(source, target, path string) error {
 		}
 	}
 
-	//TODO: ALTER TABLE COMMENT
+	// ALTER TABLE...
+	for _, sourceTable := range sourceTableData {
+		if targetTable, ok := targetTableMap[sourceTable.TableName]; ok {
+			if !CompareTable(sourceTable, targetTable) {
+				var (
+					engine           = "" // ENGINE = MEMORY, ROW_FORMAT = Fixed  // ROW_FORMAT需要放在最后面
+					charset          = "" // CHARACTER SET = utf16, COLLATE = utf16_german2_ci
+					comment          = "" // COMMENT = '账号表'
+					alterTable       = fmt.Sprintf("ALTER TABLE `%s`", sourceTable.TableName)
+					originAlterTable = alterTable
+					engineChangeFlag = false
+				)
+				if sourceTable.ENGINE.Valid && sourceTable.ENGINE.String != targetTable.ENGINE.String {
+					engineChangeFlag = true
+					engine = fmt.Sprintf(" ENGINE=%s", sourceTable.ENGINE.String)
+					alterTable = alterTable + engine
+				}
+				if sourceTable.TableCollation.Valid && sourceTable.TableCollation.String != targetTable.TableCollation.String {
+					collation := sourceTable.TableCollation.String
+					character, ok := sourceCharsetMap[collation]
+					if !ok {
+						return errors.New(fmt.Sprintf("源(source)数据库找不到COLLATION:%s对应的CHARACTER", collation))
+					}
+					charset = fmt.Sprintf(" CHARACTER SET=%s, COLLATE=%s", character, collation)
+					if alterTable == originAlterTable {
+						alterTable = alterTable + charset
+					} else {
+						alterTable = alterTable + "," + charset
+					}
+				}
+				if sourceTable.TableComment != targetTable.TableComment {
+					comment = fmt.Sprintf(" COMMENT='%s'", sourceTable.TableComment)
+					if alterTable == originAlterTable {
+						alterTable = alterTable + comment
+					} else {
+						alterTable = alterTable + "," + comment
+					}
+				}
+				if engineChangeFlag {
+					alterTable = alterTable + fmt.Sprintf(",ROW_FORMAT=%s", sourceTable.RowFormat.String)
+				}
+				alterTable = alterTable + ";"
+				diffSql = append(diffSql, alterTable)
+			}
+		}
+
+	}
 
 	for _, sourceTable := range sourceTableData {
 		if _, ok := targetTableMap[sourceTable.TableName]; ok {
@@ -944,8 +1008,20 @@ func CompareColumns(sourceColumnsPos map[int]Column, targetColumnsPos map[int]Co
 	return true
 }
 
-// TODO 表的引擎，表注释等
+// 比对表属性
 func CompareTable(sourceTable, targetTable Table) bool {
+	if sourceTable.ENGINE != targetTable.ENGINE {
+		return false
+	}
+	if sourceTable.RowFormat != targetTable.RowFormat {
+		return false
+	}
+	if sourceTable.TableCollation != targetTable.TableCollation {
+		return false
+	}
+	if sourceTable.TableComment != targetTable.TableComment {
+		return false
+	}
 	return true
 }
 
