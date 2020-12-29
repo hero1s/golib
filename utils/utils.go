@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"git.moumentei.com/plat_go/golib/helpers/file"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/helpers/file"
+	"github.com/hero1s/golib/log"
 	"os"
 	"os/signal"
 	"runtime"

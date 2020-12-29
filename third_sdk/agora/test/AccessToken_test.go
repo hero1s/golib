@@ -1,9 +1,9 @@
 package test
 
 import (
-	"git.moumentei.com/plat_go/golib/third_sdk/agora/src/AccessToken"
-	"git.moumentei.com/plat_go/golib/third_sdk/agora/src/RtcTokenBuilder"
-	rtmtokenbuilder "git.moumentei.com/plat_go/golib/third_sdk/agora/src/RtmTokenBuilder"
+	"github.com/hero1s/golib/third_sdk/agora/src/AccessToken"
+	"github.com/hero1s/golib/third_sdk/agora/src/RtcTokenBuilder"
+	rtmtokenbuilder "github.com/hero1s/golib/third_sdk/agora/src/RtmTokenBuilder"
 	"testing"
 )
 

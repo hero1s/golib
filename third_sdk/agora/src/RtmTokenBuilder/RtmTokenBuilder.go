@@ -1,7 +1,7 @@
 package rtmtokenbuilder
 
 import (
-	"git.moumentei.com/plat_go/golib/third_sdk/agora/src/AccessToken"
+	"github.com/hero1s/golib/third_sdk/agora/src/AccessToken"
 )
 
 // Role Type

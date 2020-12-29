@@ -2,7 +2,7 @@ package nacos
 
 import (
 	"encoding/json"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"github.com/nacos-group/nacos-sdk-go/clients"
 	"github.com/nacos-group/nacos-sdk-go/clients/config_client"
 	"github.com/nacos-group/nacos-sdk-go/common/constant"

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/connsvr/chanrpc"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/connsvr/chanrpc"
+	"github.com/hero1s/golib/log"
 	"reflect"
 )
 

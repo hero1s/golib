@@ -1,6 +1,6 @@
 package reverse
 
-import "git.moumentei.com/plat_go/golib/tools/qbtool/cmd/base"
+import "github.com/hero1s/golib/tools/qbtool/cmd/base"
 import "fmt"
 
 func RunReverse(source, path string,singleFile bool) error {

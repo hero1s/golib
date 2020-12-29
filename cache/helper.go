@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"git.moumentei.com/plat_go/golib/constant"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/constant"
+	"github.com/hero1s/golib/log"
 	"time"
 )
 

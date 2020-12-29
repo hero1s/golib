@@ -3,7 +3,7 @@ package regex
 import (
 	"errors"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/helpers/status"
+	"github.com/hero1s/golib/helpers/status"
 	"regexp"
 )
 

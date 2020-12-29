@@ -3,7 +3,7 @@ package datafinder
 import (
 	"encoding/json"
 	"errors"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"io/ioutil"
 	"net"
 	"net/http"

@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"testing"
 
-	"git.moumentei.com/plat_go/golib/log/conf"
+	"github.com/hero1s/golib/log/conf"
 )
 
 func TestLogger(t *testing.T) {

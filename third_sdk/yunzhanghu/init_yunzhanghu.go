@@ -1,9 +1,9 @@
 package yunzhanghu
 
 import (
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/third_sdk/pay/gopay"
-	sdk2 "git.moumentei.com/plat_go/golib/third_sdk/yunzhanghu/sdk"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/third_sdk/pay/gopay"
+	sdk2 "github.com/hero1s/golib/third_sdk/yunzhanghu/sdk"
 )
 
 // 接口配置信息

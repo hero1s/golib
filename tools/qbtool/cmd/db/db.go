@@ -2,9 +2,9 @@ package db
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/tools/qbtool/cmd/base"
-	"git.moumentei.com/plat_go/golib/tools/qbtool/cmd/db/diff"
-	"git.moumentei.com/plat_go/golib/tools/qbtool/cmd/db/reverse"
+	"github.com/hero1s/golib/tools/qbtool/cmd/base"
+	"github.com/hero1s/golib/tools/qbtool/cmd/db/diff"
+	"github.com/hero1s/golib/tools/qbtool/cmd/db/reverse"
 )
 
 var Cmd = &base.Command{

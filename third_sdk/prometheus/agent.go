@@ -2,8 +2,8 @@ package prometheus
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/utils/threading"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/utils/threading"
 	"net/http"
 	"sync"
 

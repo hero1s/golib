@@ -3,7 +3,7 @@ package internal
 import (
 	"errors"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"github.com/go-redis/redis/v7"
 	"io"
 	"sync"

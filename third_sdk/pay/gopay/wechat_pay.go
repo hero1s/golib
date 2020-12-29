@@ -1,8 +1,8 @@
 package gopay
 
 import (
-	"git.moumentei.com/plat_go/golib/helpers/ip"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/helpers/ip"
+	"github.com/hero1s/golib/log"
 	"github.com/iGoogle-ink/gopay"
 	"strconv"
 	"time"

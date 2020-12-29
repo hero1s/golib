@@ -1,7 +1,7 @@
 package network
 
 import (
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"net"
 	"sync"
 	"time"

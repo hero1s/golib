@@ -5,8 +5,8 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/third_sdk/agora/src/RtcTokenBuilder"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/third_sdk/agora/src/RtcTokenBuilder"
 	"time"
 )
 

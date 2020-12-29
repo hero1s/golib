@@ -3,7 +3,7 @@ package diff
 import (
 	"database/sql"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/tools/qbtool/cmd/base"
+	"github.com/hero1s/golib/tools/qbtool/cmd/base"
 	_ "github.com/go-sql-driver/mysql"
 	"os"
 	"path/filepath"

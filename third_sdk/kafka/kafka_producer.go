@@ -2,7 +2,7 @@ package kafka
 
 import (
 	"encoding/json"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"gopkg.in/Shopify/sarama.v1"
 )
 

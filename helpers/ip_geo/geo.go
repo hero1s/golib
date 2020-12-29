@@ -2,7 +2,7 @@ package ip_geo
 
 import (
 	"errors"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	geoIp2 "github.com/oschwald/geoip2-golang"
 	"net"
 )

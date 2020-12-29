@@ -1,9 +1,9 @@
 package module
 
 import (
-	"git.moumentei.com/plat_go/golib/connsvr/chanrpc"
-	"git.moumentei.com/plat_go/golib/connsvr/internal/go"
-	"git.moumentei.com/plat_go/golib/connsvr/timer"
+	"github.com/hero1s/golib/connsvr/chanrpc"
+	"github.com/hero1s/golib/connsvr/internal/go"
+	"github.com/hero1s/golib/connsvr/timer"
 	"time"
 )
 

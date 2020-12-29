@@ -1,8 +1,8 @@
 package uuid
 
 import (
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/utils/uuid/internal"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/utils/uuid/internal"
 	"github.com/go-redis/redis/v7"
 	"github.com/google/uuid"
 	"strconv"

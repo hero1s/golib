@@ -1,7 +1,7 @@
 package test
 
 import (
-	"git.moumentei.com/plat_go/golib/third_sdk/agora/src/SignalingToken"
+	"github.com/hero1s/golib/third_sdk/agora/src/SignalingToken"
 	 "testing"
 )
 

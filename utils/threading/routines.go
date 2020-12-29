@@ -1,7 +1,7 @@
 package threading
 
 import (
-	"git.moumentei.com/plat_go/golib/utils/rescue"
+	"github.com/hero1s/golib/utils/rescue"
 )
 
 /*安全go执行函数，注意传参延迟的问题，

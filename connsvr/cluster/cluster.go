@@ -2,9 +2,9 @@ package cluster
 
 import (
 	"github.com/hero1s/golib/connsvr/chanrpc"
-	"git.moumentei.com/plat_go/golib/connsvr/conf"
-	"git.moumentei.com/plat_go/golib/connsvr/network"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/connsvr/conf"
+	"github.com/hero1s/golib/connsvr/network"
+	"github.com/hero1s/golib/log"
 	"math"
 	"net"
 	"time"

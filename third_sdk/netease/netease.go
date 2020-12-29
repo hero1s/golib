@@ -6,7 +6,7 @@ import (
 	"crypto/tls"
 	"encoding/hex"
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"io/ioutil"
 	"math/rand"
 	"net"

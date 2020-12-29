@@ -3,9 +3,9 @@ package gopay
 import (
 	"encoding/json"
 	"errors"
-	"git.moumentei.com/plat_go/golib/helpers/encode"
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/utils/uuid"
+	"github.com/hero1s/golib/helpers/encode"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/utils/uuid"
 	"github.com/iGoogle-ink/gopay"
 )
 

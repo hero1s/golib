@@ -7,7 +7,7 @@ import (
 	"crypto/sha1"
 	"encoding/base64"
 	"encoding/json"
-	uuid2 "git.moumentei.com/plat_go/golib/third_sdk/alisdk/green/uuid"
+	uuid2 "github.com/hero1s/golib/third_sdk/alisdk/green/uuid"
 	"net/http"
 	"time"
 )

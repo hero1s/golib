@@ -3,7 +3,8 @@ module github.com/hero1s/golib
 go 1.14
 
 require (
-	git.moumentei.com/plat_go/golib v0.0.0-20201225013707-2916df43f2a2
+	github.com/DataDog/zstd v1.4.5 // indirect
+	github.com/HdrHistogram/hdrhistogram-go v1.0.1 // indirect
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.623
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.4+incompatible
@@ -47,6 +48,7 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/swaggo/swag v1.6.5
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
+	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
 	github.com/zheng-ji/goSnowFlake v0.0.0-20180906112711-fc763800eec9
 	go.uber.org/zap v1.16.0
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
@@ -56,6 +58,7 @@ require (
 	gopkg.in/Shopify/sarama.v1 v1.20.1
 	gopkg.in/fatih/set.v0 v0.2.1
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )
 
 replace github.com/iGoogle-ink/gopay v1.3.9 => github.com/hero1s/gopay v1.4.3

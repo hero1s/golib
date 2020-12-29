@@ -2,8 +2,8 @@ package alisdk
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
-	"git.moumentei.com/plat_go/golib/stringutils"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/stringutils"
 	"io"
 	"strings"
 	"time"

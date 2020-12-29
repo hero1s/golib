@@ -2,7 +2,7 @@ package panic_handler
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/log"
 	"os"
 	"runtime"
 	"runtime/debug"

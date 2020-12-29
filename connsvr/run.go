@@ -1,9 +1,9 @@
 package connsvr
 
 import (
-	"git.moumentei.com/plat_go/golib/connsvr/cluster"
-	"git.moumentei.com/plat_go/golib/connsvr/module"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/connsvr/cluster"
+	"github.com/hero1s/golib/connsvr/module"
+	"github.com/hero1s/golib/log"
 	"os"
 	"os/signal"
 )

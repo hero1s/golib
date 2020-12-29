@@ -2,7 +2,7 @@ package timer_test
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/connsvr/timer"
+	"github.com/hero1s/golib/connsvr/timer"
 	"time"
 )
 

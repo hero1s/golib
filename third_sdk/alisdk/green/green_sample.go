@@ -2,9 +2,9 @@ package green_sdk
 
 import (
 	"encoding/json"
-	"git.moumentei.com/plat_go/golib/log"
-	greensdksample2 "git.moumentei.com/plat_go/golib/third_sdk/alisdk/green/greensdksample"
-	uuid2 "git.moumentei.com/plat_go/golib/third_sdk/alisdk/green/uuid"
+	"github.com/hero1s/golib/log"
+	greensdksample2 "github.com/hero1s/golib/third_sdk/alisdk/green/greensdksample"
+	uuid2 "github.com/hero1s/golib/third_sdk/alisdk/green/uuid"
 	"path"
 	"regexp"
 )

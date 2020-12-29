@@ -2,7 +2,7 @@ package g_test
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/connsvr/internal/go"
+	"github.com/hero1s/golib/connsvr/internal/go"
 	"time"
 )
 

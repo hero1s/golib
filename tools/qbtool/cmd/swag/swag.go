@@ -2,8 +2,8 @@ package swag
 
 import (
 	"fmt"
-	"git.moumentei.com/plat_go/golib/tools/qbtool/cmd/base"
-	util "git.moumentei.com/plat_go/golib/tools/qbtool/cmd/internal"
+	"github.com/hero1s/golib/tools/qbtool/cmd/base"
+	util "github.com/hero1s/golib/tools/qbtool/cmd/internal"
 	"github.com/swaggo/swag"
 	"github.com/swaggo/swag/gen"
 	"log"

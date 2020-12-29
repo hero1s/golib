@@ -1,8 +1,8 @@
 package module
 
 import (
-	"git.moumentei.com/plat_go/golib/connsvr/conf"
-	"git.moumentei.com/plat_go/golib/log"
+	"github.com/hero1s/golib/connsvr/conf"
+	"github.com/hero1s/golib/log"
 	"runtime"
 	"sync"
 )
