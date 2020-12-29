@@ -1,4 +1,4 @@
-package stringutils
+package string
 
 import (
 	"bytes"
