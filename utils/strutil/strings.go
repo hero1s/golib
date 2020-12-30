@@ -1,4 +1,4 @@
-package string
+package strutil
 
 import (
 	"errors"

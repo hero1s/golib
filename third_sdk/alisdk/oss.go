@@ -3,15 +3,15 @@ package alisdk
 import (
 	"fmt"
 	"github.com/hero1s/golib/log"
-	"github.com/hero1s/golib/stringutils"
+	"github.com/hero1s/golib/utils/strutil"
 	"io"
 	"strings"
 	"time"
 )
 
 func UploadFileToOss(reader io.Reader, filename, savePath, savename string, id uint64) (ossPath string, err error) {
-	ext := stringutils.SubString(stringutils.Unicode(filename),
-		strings.LastIndex(stringutils.Unicode(filename), "."), 5)
+	ext := strutil.SubString(strutil.Unicode(filename),
+		strings.LastIndex(strutil.Unicode(filename), "."), 5)
 	filename = fmt.Sprintf("%d%d", time.Now().UnixNano(), id) + ext
 	if len(savename) > 1 {
 		filename = savename + ext

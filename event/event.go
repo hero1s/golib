@@ -2,7 +2,7 @@
 //
 package event
 
-import "github.com/hero1s/golib/stringutils"
+import "github.com/hero1s/golib/utils/strutil"
 
 // Event interface
 type Event interface {
@@ -73,14 +73,14 @@ func (e *BasicEvent) Get(key string) interface{} {
 // 便捷转换
 func (e *BasicEvent) GetInt(key string) int {
 	if v, ok := e.data[key]; ok {
-		return stringutils.GetInt(v)
+		return strutil.GetInt(v)
 	}
 	return 0
 }
 
 func (e *BasicEvent) GetString(key string) string {
 	if v, ok := e.data[key]; ok {
-		return stringutils.GetString(v)
+		return strutil.GetString(v)
 	}
 	return ""
 }

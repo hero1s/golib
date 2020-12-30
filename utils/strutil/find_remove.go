@@ -1,4 +1,4 @@
-package string
+package strutil
 
 func ValueFindinInt(value int64, values ...int64) bool {
 	for i := 0; i < len(values); i++ {

@@ -3,11 +3,11 @@ package token
 // 生成token, 解析token
 import (
 	"errors"
-	"github.com/hero1s/golib/i18n"
-	"github.com/hero1s/golib/log"
-	"github.com/hero1s/golib/stringutils"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
+	"github.com/hero1s/golib/i18n"
+	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/utils/strutil"
 	"net/http"
 	"time"
 )
@@ -37,14 +37,14 @@ func (c *CustomClaims) GetString(key string) string {
 }
 
 func (c *CustomClaims) GetInt(key string) int {
-	return stringutils.String2Int(c.Infos[key])
+	return strutil.String2Int(c.Infos[key])
 }
 
 // generate token
 func GenerateToken(infos map[string]string) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := CustomClaims{
-		Infos:       infos,
+		Infos: infos,
 	}
 	// 1小时过期
 	claims.ExpiresAt = time.Now().Add(time.Duration(TokenExporeTime) * time.Hour).Unix()
@@ -111,10 +111,10 @@ func RefreshToken(r *http.Request) (string, error) {
 	return "", wrapError(TokenInvalid)
 }
 
-func RefreshTokenByStr(tokenStr string)(string, error)  {
-	if cust,err := DecodeTokenByStr(tokenStr);err != nil {
-		return "",err
-	}else{
+func RefreshTokenByStr(tokenStr string) (string, error) {
+	if cust, err := DecodeTokenByStr(tokenStr); err != nil {
+		return "", err
+	} else {
 		return GenerateToken(cust.Infos)
 	}
 }
