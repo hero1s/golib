@@ -2,9 +2,9 @@ package db
 
 import (
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/hero1s/golib/db/orm"
 	"github.com/hero1s/golib/log"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 // 读取mysql的配置, 初始化mysql
@@ -18,8 +18,7 @@ type DbConf struct {
 	DueTime   int64  `json:"due_time"`
 }
 
-// init mysql params(30, 500,int64(10*time.Minute))
-func InitDB(aliasName, user, password, host, dbName string, debugLog bool, dueTimeMs int64, params ...int) error {
+func InitDBByDsn(aliasName, dsn string, debugLog bool, dueTimeMs int64, params ...int) error {
 	orm.Debug = debugLog
 	orm.LogFunc = func(queies string, err error, elsp float64) {
 		if err != nil {
@@ -31,8 +30,13 @@ func InitDB(aliasName, user, password, host, dbName string, debugLog bool, dueTi
 		}
 	}
 	orm.RegisterDriver("mysql", orm.DRMySQL)
+	return orm.RegisterDataBase(aliasName, "mysql", dsn, params...)
+}
+
+// init mysql params(30, 500,int64(10*time.Minute))
+func InitDB(aliasName, user, password, host, dbName string, debugLog bool, dueTimeMs int64, params ...int) error {
 	source := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&loc=Local", user, password, host, dbName)
-	return orm.RegisterDataBase(aliasName, "mysql", source, params...)
+	return InitDBByDsn(aliasName, source, debugLog, dueTimeMs, params...)
 }
 
 func InitDBConf(conf DbConf, params ...int) error {
