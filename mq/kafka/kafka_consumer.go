@@ -1,8 +1,8 @@
 package kafka
 
 import (
-	"github.com/hero1s/golib/log"
 	cluster "github.com/bsm/sarama-cluster"
+	"github.com/hero1s/golib/log"
 )
 
 // Job is push job.

@@ -2,10 +2,10 @@ package cache
 
 import (
 	"errors"
+	"github.com/go-redis/redis/v7"
 	"github.com/hero1s/golib/helpers/encode"
 	"github.com/hero1s/golib/log"
 	"github.com/hero1s/golib/utils/threading"
-	"github.com/go-redis/redis/v7"
 	"time"
 )
 

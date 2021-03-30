@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/DataDog/zstd v1.4.5 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v1.0.1 // indirect
+	github.com/Hurricanezwf/rabbitmq-go v0.0.6
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.623
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.4+incompatible
@@ -45,6 +46,7 @@ require (
 	github.com/prometheus/client_golang v1.7.0
 	github.com/shopspring/decimal v1.2.0
 	github.com/spf13/viper v1.7.1
+	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
 	github.com/swaggo/swag v1.6.5
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
