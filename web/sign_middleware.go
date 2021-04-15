@@ -64,7 +64,7 @@ func changeMd5Str(p map[string]interface{}) (string, error) {
 /*
 	securet:md5签名秘钥
 	headKeys:head里面需要校验的字段
-	1:sign 字段为签名字段,ts 为时间戳,放head
+	1:Sign 字段为签名字段,Ts 为时间戳,放head
 	2:取出head 指定字段headKeys的参数以及get参数,存入map[string]string
 	3:对map的key排序后拼接字符串str += key + values
 	4:sign = md5(str + bodystr + securet + ts)
@@ -89,7 +89,6 @@ func CheckParam(securet string, headKeys []string) gin.HandlerFunc {
 		}
 		// 读取后写回
 		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-		//json.Unmarshal(bodyBytes,&params)
 		//添加head参数
 		for _, k := range headKeys {
 			params[k] = c.GetHeader(k)
