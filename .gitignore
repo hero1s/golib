@@ -2,3 +2,4 @@
 pid.txt
 *.log
 /Users/qs/Documents/code/server/makefile.pub
+.DS_Store
