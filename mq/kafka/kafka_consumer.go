@@ -40,7 +40,7 @@ func (j *ConsumerClient) Close() error {
 }
 
 // Consume messages, watch signals
-func (j *ConsumerClient) Consume(process func(key, msg []byte)) {
+func (j *ConsumerClient) Consume(process func(key, msg []byte)error) {
 	for {
 		select {
 		case err := <-j.consumer.Errors():
@@ -51,10 +51,13 @@ func (j *ConsumerClient) Consume(process func(key, msg []byte)) {
 			if !ok {
 				return
 			}
-			j.consumer.MarkOffset(msg, "")
 			// process push message
-			process(msg.Key, msg.Value)
-			log.Infof("consume: %s/%d/%d\t%s\t%s", msg.Topic, msg.Partition, msg.Offset, msg.Key, msg.Value)
+			if err := process(msg.Key, msg.Value);err == nil {
+				log.Infof("consume: %s/%d/%d\t%s\t%s", msg.Topic, msg.Partition, msg.Offset, msg.Key, msg.Value)
+				j.consumer.MarkOffset(msg, "")
+			}else{
+				log.Errorf("consume error:%v",err)
+			}
 		}
 	}
 }
