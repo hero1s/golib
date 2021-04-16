@@ -18,7 +18,7 @@ type DbConf struct {
 	DueTime   int64  `json:"due_time"`
 }
 
-func InitDBByDsn(aliasName, dsn string, debugLog bool, dueTimeMs int64, params ...int) error {
+func InitDBByDsn(aliasName, dsn string, debugLog bool, dueTimeMs int64, maxIdleConn int, maxOpenConn int) error {
 	orm.Debug = debugLog
 	orm.LogFunc = func(queies string, err error, elsp float64) {
 		if err != nil {
@@ -30,17 +30,17 @@ func InitDBByDsn(aliasName, dsn string, debugLog bool, dueTimeMs int64, params .
 		}
 	}
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	return orm.RegisterDataBase(aliasName, "mysql", dsn, params...)
+	return orm.RegisterDataBase(aliasName, "mysql", dsn, maxIdleConn, maxOpenConn)
 }
 
 // init mysql params(30, 500,int64(10*time.Minute))
-func InitDB(aliasName, user, password, host, dbName string, debugLog bool, dueTimeMs int64, params ...int) error {
+func InitDB(aliasName, user, password, host, dbName string, debugLog bool, dueTimeMs int64, maxIdleConn int, maxOpenConn int) error {
 	source := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&loc=Local", user, password, host, dbName)
-	return InitDBByDsn(aliasName, source, debugLog, dueTimeMs, params...)
+	return InitDBByDsn(aliasName, source, debugLog, dueTimeMs, maxIdleConn, maxOpenConn)
 }
 
-func InitDBConf(conf DbConf, params ...int) error {
-	err := InitDB(conf.AliasName, conf.User, conf.Password, conf.Host, conf.DbName, conf.DebugLog, conf.DueTime, params...)
+func InitDBConf(conf DbConf, maxIdleConn int, maxOpenConn int) error {
+	err := InitDB(conf.AliasName, conf.User, conf.Password, conf.Host, conf.DbName, conf.DebugLog, conf.DueTime, maxIdleConn, maxOpenConn)
 	if err != nil {
 		return err
 	}
