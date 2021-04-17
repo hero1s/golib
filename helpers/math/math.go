@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/rand"
 	"time"
+	"github.com/shopspring/decimal"
 )
 
 func init() {
@@ -80,10 +81,10 @@ func MaxInt(x, y int64) int64 {
 	return y
 }
 
-//保留1位小数
-func Decimal(value float64) float64 {
-	value = float64(math.Floor(value*10))/10
-	return value
+//保留N位小数
+func Decimal(value float64,places int32) float64 {
+	v1, _ := decimal.NewFromFloat(value).Round(places).Float64()
+	return v1
 }
 
 //打乱一个uint数组
