@@ -52,7 +52,7 @@ func (t *Table) MultiRecordByAny(conditionSql string, record interface{}, multiO
 
 // 带分页的多行记录并返回总行数
 func (t *Table) MultiRecordByAnyOrderLimit(conditionSql string, orderbyCondition string, pageIndex, pageSize int64, record interface{}, multiOrm ...orm.Ormer) (int64, error) {
-	return dbsql.MultiRecordByAnyOrderLimit(t.DbName, t.TableName, conditionSql, orderbyCondition, pageIndex, pageSize, record)
+	return dbsql.MultiRecordByAnyOrderLimit(t.DbName, t.TableName, conditionSql, orderbyCondition, pageIndex, pageSize, record,multiOrm...)
 }
 
 func (t *Table) ALLRecord(record interface{}, multiOrm ...orm.Ormer) error {
