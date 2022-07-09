@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"runtime"
-	"syscall"
 )
 
 // 获取正在运行的函数名
@@ -29,15 +28,6 @@ func RunMain(initFunc func() error, destroy func(), pidFileName string) error {
 	if len(pidFileName) > 1 {
 		file.WritePidFile(pidFileName)
 	}
-	//截获dump信息输出
-	file, err1 := file.Open(pidFileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err1 != nil {
-		log.Errorf("pid文件打开失败")
-	} else {
-		syscall.Dup2(int(file.Fd()), 1)
-		syscall.Dup2(int(file.Fd()), 2)
-	}
-
 	// close
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, os.Kill)

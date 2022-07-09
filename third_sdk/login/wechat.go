@@ -64,15 +64,18 @@ func NewWeChatAuth(AppID, AppSecret string) *WeChatAuth {
 }
 
 //通过code来获取aceess_token及open_id
-func (oAuth *WeChatAuth)GetWeChatOpenIdAccessToken(code string, redirectUrl string) (*WeChatToken, error) {
+func (oAuth *WeChatAuth) GetWeChatOpenIdAccessToken(code string, redirectUrl string, debug bool) (*WeChatToken, error) {
 	url := fmt.Sprintf("https://api.weixin.qq.com/sns/oauth2/access_token?"+
-		"appid=%v&secret=%v&code=%v&grant_type=authorization_code&redirect_uri=%v", oAuth.WeChatAppID, oAuth.WeChatAppSecret, code,redirectUrl)
+		"appid=%v&secret=%v&code=%v&grant_type=authorization_code&redirect_uri=%v", oAuth.WeChatAppID, oAuth.WeChatAppSecret, code, redirectUrl)
 	body, err := fetch2.Cmd(fetch2.Request{
 		Method: "GET",
 		URL:    url,
 	})
 	if err != nil {
 		return nil, err
+	}
+	if debug {
+		log.Info("body:", string(body))
 	}
 	var result WeChatToken
 	err = json.Unmarshal(body, &result)
@@ -100,7 +103,7 @@ type WeChatSign struct {
 	Signature string `json:"signature"`
 }
 
-func (oAuth *WeChatAuth)getAccessToken() (string, error) {
+func (oAuth *WeChatAuth) getAccessToken() (string, error) {
 	var result AccessToken
 	keyAccessToken := fmt.Sprintf("access_token_%s", oAuth.WeChatAppID)
 	var accessToken string
@@ -136,7 +139,7 @@ func (oAuth *WeChatAuth)getAccessToken() (string, error) {
 	}
 	return accessToken, err
 }
-func (oAuth *WeChatAuth)GetWeChatTicket(uri string) (*WeChatSign, error) {
+func (oAuth *WeChatAuth) GetWeChatTicket(uri string) (*WeChatSign, error) {
 	accessToken, err := oAuth.getAccessToken()
 	if err != nil {
 		return nil, err
@@ -144,7 +147,7 @@ func (oAuth *WeChatAuth)GetWeChatTicket(uri string) (*WeChatSign, error) {
 	return oAuth.getWeChatTicket(accessToken, uri)
 }
 
-func (oAuth *WeChatAuth)getWeChatTicket(accessToken, uri string) (*WeChatSign, error) {
+func (oAuth *WeChatAuth) getWeChatTicket(accessToken, uri string) (*WeChatSign, error) {
 	var result WeChatTicket
 	var ticket string
 	var err error
