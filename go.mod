@@ -27,6 +27,7 @@ require (
 	github.com/howeyc/fsnotify v0.9.0
 	github.com/iGoogle-ink/gopay v1.3.9
 	github.com/lib/pq v1.7.0
+	github.com/liuhongdi/digv14 v0.0.0-20210104043934-969db1b0e263
 	github.com/logrusorgru/aurora v0.0.0-20181002194514-a7b3b318ed4e
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/micro/cli/v2 v2.1.2
