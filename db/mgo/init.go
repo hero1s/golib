@@ -19,7 +19,9 @@ func InitMgo(addr []string, database, username, password string, timeout time.Du
 	}
 	var err error
 	DefaultMgoSession, err = mgo.DialWithInfo(dialInfo)
-	log.Errorf("InitMgo Err:%v", err)
+	if err != nil {
+		log.Errorf("InitMgo Err:%v", err)
+	}
 	return err
 }
 
