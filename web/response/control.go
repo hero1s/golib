@@ -3,6 +3,7 @@ package response
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/hero1s/golib/log"
 	"net/http"
 )
 
@@ -84,4 +85,13 @@ func (c *Control) ReturnResult(context *gin.Context, code string, message string
 func (c *Control) File(context *gin.Context, filePath, fileName string) {
 	context.Writer.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", fileName))
 	context.File(filePath)
+}
+
+func (c *Control) TryBindParam(context *gin.Context, param any) bool {
+	if err := context.Bind(param); err != nil {
+		log.Errorf("try bind param error:%v", err)
+		c.BindingError(context)
+		return false
+	}
+	return true
 }
