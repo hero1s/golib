@@ -1,10 +1,9 @@
 package math
 
 import (
-	"math"
+	"github.com/shopspring/decimal"
 	"math/rand"
 	"time"
-	"github.com/shopspring/decimal"
 )
 
 func init() {
@@ -82,7 +81,7 @@ func MaxInt(x, y int64) int64 {
 }
 
 //保留N位小数
-func Decimal(value float64,places int32) float64 {
+func Decimal(value float64, places int32) float64 {
 	v1, _ := decimal.NewFromFloat(value).Round(places).Float64()
 	return v1
 }
@@ -102,4 +101,3 @@ func RandomString(strings []string) {
 		strings[i], strings[num] = strings[num], strings[i]
 	}
 }
-

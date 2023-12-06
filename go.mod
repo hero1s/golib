@@ -50,7 +50,8 @@ require (
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/zheng-ji/goSnowFlake v0.0.0-20180906112711-fc763800eec9
 	go.uber.org/zap v1.16.0
-	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
+	golang.org/x/net v0.6.0
+	golang.org/x/text v0.8.0
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
 	google.golang.org/api v0.35.0
 	google.golang.org/grpc v1.31.1
@@ -158,9 +159,8 @@ require (
 	go.uber.org/ratelimit v0.1.0 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43 // indirect
-	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
-	golang.org/x/text v0.3.4 // indirect
-	golang.org/x/tools v0.0.0-20200904185747-39188db58858 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
