@@ -42,7 +42,7 @@ func getDb(db string) (*mgo.Session, *mgo.Database) {
 }
 
 /*
-	设置索引
+设置索引
 */
 func SetKeyIndex(db, collection string, keys []string) error {
 	ms, c := connect(db, collection)
@@ -58,10 +58,10 @@ func GetKeyIndexs(db, collection string) ([]mgo.Index, error) {
 }
 
 /*
-	每次操作之后都要主动关闭 Session defer Session.Close()
-	db:操作的数据库
-	collection:操作的文档(表)
-	doc:要插入的数据
+每次操作之后都要主动关闭 Session defer Session.Close()
+db:操作的数据库
+collection:操作的文档(表)
+doc:要插入的数据
 */
 func Insert(db, collection string, doc interface{}) error {
 	ms, c := connect(db, collection)
@@ -83,11 +83,11 @@ err := db.Insert("Test", "TestModel", data)
 */
 
 /*
-	db:操作的数据库
-	collection:操作的文档(表)
-	query:查询条件
-	selector:需要过滤的数据(projection)
-	result:查询到的结果
+db:操作的数据库
+collection:操作的文档(表)
+query:查询条件
+selector:需要过滤的数据(projection)
+result:查询到的结果
 */
 func FindOne(db, collection string, query, selector, result interface{}) error {
 	ms, c := connect(db, collection)
@@ -168,13 +168,13 @@ func RemoveAll(db, collection string, selector interface{}) error {
 }
 
 /*
-	err = db.Remove(database,collection,bson.M{"_id":"5b3c30639d5e3e24b8786540"})
+err = db.Remove(database,collection,bson.M{"_id":"5b3c30639d5e3e24b8786540"})
 */
-func FindPage(db, collection string, page, limit int, query, selector, result interface{}) error {
+func FindPage(db, collection string, page, limit int, query, selector, result interface{}, sortor []string) error {
 	ms, c := connect(db, collection)
 	defer ms.Close()
 
-	return c.Find(query).Select(selector).Skip(page * limit).Limit(limit).All(result)
+	return c.Find(query).Select(selector).Sort(sortor...).Skip(page * limit).Limit(limit).All(result)
 }
 
 func FindIter(db, collection string, query interface{}) *mgo.Iter {
@@ -200,7 +200,7 @@ func Count(db, collection string, query interface{}) (int, error) {
 	return c.Find(query).Count()
 }
 
-//insert one or multi documents
+// insert one or multi documents
 func BulkInsert(db, collection string, docs ...interface{}) (*mgo.BulkResult, error) {
 	ms, c := connect(db, collection)
 	defer ms.Close()
