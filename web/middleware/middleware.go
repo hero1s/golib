@@ -1,13 +1,13 @@
-package web
+package middleware
 
 import (
 	"bytes"
 	"context"
+	"github.com/gin-gonic/gin"
 	"github.com/hero1s/golib/helpers/token"
 	"github.com/hero1s/golib/log"
 	"github.com/hero1s/golib/utils/uuid"
 	"github.com/hero1s/golib/web/response"
-	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"io/ioutil"
 	"math/rand"

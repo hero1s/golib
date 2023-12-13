@@ -5,6 +5,7 @@ import (
 	"github.com/hero1s/golib/task"
 	"github.com/hero1s/golib/utils"
 	"github.com/hero1s/golib/web/admin"
+	"github.com/hero1s/golib/web/middleware"
 	"github.com/hero1s/golib/web/response"
 	"testing"
 	"time"
@@ -26,7 +27,7 @@ func TestInitServer(t *testing.T) {
 	}
 
 	g := InitGinServer(c)
-	g.Gin.Use(LogRequest(false))
+	g.Gin.Use(middleware.LogRequest(false))
 	//g.Gin.Use(JWTAuth())
 	g.Register(initRoute)
 

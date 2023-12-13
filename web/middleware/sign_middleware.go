@@ -1,4 +1,4 @@
-package web
+package middleware
 
 import (
 	"bytes"
@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-//数组类型为""
+// 数组类型为""
 func convertVtoStr(value interface{}) (string, error) {
 	switch value.(type) {
 	case string:
@@ -62,12 +62,12 @@ func changeMd5Str(p map[string]interface{}) (string, error) {
 }
 
 /*
-	securet:md5签名秘钥
-	headKeys:head里面需要校验的字段
-	1:Sign 字段为签名字段,Ts 为时间戳,放head
-	2:取出head 指定字段headKeys的参数以及get参数,存入map[string]string
-	3:对map的key排序后拼接字符串str += key + values
-	4:sign = md5(str + bodystr + securet + ts)
+securet:md5签名秘钥
+headKeys:head里面需要校验的字段
+1:Sign 字段为签名字段,Ts 为时间戳,放head
+2:取出head 指定字段headKeys的参数以及get参数,存入map[string]string
+3:对map的key排序后拼接字符串str += key + values
+4:sign = md5(str + bodystr + securet + ts)
 */
 func CheckParam(securet string, headKeys []string) gin.HandlerFunc {
 	return func(c *gin.Context) {
