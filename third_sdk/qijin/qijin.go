@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/hero1s/golib/helpers/crypto"
 	"github.com/hero1s/golib/helpers/encode"
-	"github.com/hero1s/golib/helpers/http_client"
 	"github.com/hero1s/golib/log"
+	"github.com/hero1s/golib/web/xhttp"
 	"net/http"
 	"strconv"
 	"time"
@@ -78,7 +78,7 @@ func addHead(h ApiCommonHead) http.Header {
 	return headers
 }
 
-//创建用户
+// 创建用户
 func (c *QiJinClient) UserCreation(user UserCreation) (UserCreationResponse, error) {
 	body, err := c.postDataHttps(methodUrl_userCreation, encode.ChangeStructToJsonMap(user))
 	var resp UserCreationResponse
@@ -89,7 +89,7 @@ func (c *QiJinClient) UserCreation(user UserCreation) (UserCreationResponse, err
 	return resp, err
 }
 
-//打款订单
+// 打款订单
 func (c *QiJinClient) OrderCreation(order OrderCreation) (OrderCreationResponse, error) {
 	body, err := c.postDataHttps(methodUrl_orderCreation, encode.ChangeStructToJsonMap(order))
 	var resp OrderCreationResponse
@@ -100,7 +100,7 @@ func (c *QiJinClient) OrderCreation(order OrderCreation) (OrderCreationResponse,
 	return resp, err
 }
 
-//订单查询
+// 订单查询
 func (c *QiJinClient) OrderDetail(order OrderDetail) (OrderDetailResponse, error) {
 	body, err := c.postDataHttps(methodUrl_orderDetail, encode.ChangeStructToJsonMap(order))
 	var resp OrderDetailResponse
@@ -123,12 +123,7 @@ func (c *QiJinClient) postDataHttps(url string, data map[string]interface{}) ([]
 		return nil, err
 	}
 	commonHead.Sign = digest
-	rsp, err := http_client.HttpsRequest(http_client.Request{
-		Method: "POST",
-		URL:    url,
-		Header: addHead(commonHead),
-		Body:   string(parameterStr),
-	})
-	log.Debugf("resp:%v,err:%v", string(rsp), err)
-	return rsp, err
+	rsp, err := xhttp.Request("POST", url, xhttp.WithBodyString(string(parameterStr)), xhttp.WithHeader(addHead(commonHead)))
+	log.Debugf("resp:%v,err:%v", string(rsp.Body), err)
+	return rsp.Body, err
 }
