@@ -7,6 +7,7 @@ require (
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.623
 	github.com/aliyun/aliyun-oss-go-sdk v2.1.4+incompatible
+	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/bsm/redislock v0.5.0
 	github.com/bsm/sarama-cluster v2.1.15+incompatible
 	github.com/davecgh/go-spew v1.1.1
@@ -24,6 +25,7 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/howeyc/fsnotify v0.9.0
 	github.com/iGoogle-ink/gopay v1.3.9
+	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.7.0
 	github.com/logrusorgru/aurora v0.0.0-20181002194514-a7b3b318ed4e
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
@@ -45,7 +47,7 @@ require (
 	github.com/shopspring/decimal v1.2.0
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.8.2
 	github.com/swaggo/swag v1.6.5
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/zheng-ji/goSnowFlake v0.0.0-20180906112711-fc763800eec9
@@ -174,7 +176,7 @@ require (
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 replace github.com/iGoogle-ink/gopay v1.3.9 => github.com/hero1s/gopay v1.4.3

@@ -9,7 +9,7 @@ import (
 	"unicode/utf8"
 )
 
-//字串截取
+// 字串截取
 func SubString(s string, pos, length int) string {
 	runes := []rune(s)
 	l := pos + length
@@ -17,6 +17,14 @@ func SubString(s string, pos, length int) string {
 		l = len(runes)
 	}
 	return string(runes[pos:l])
+}
+
+func Capitalize(s string) string {
+	if len(s) > 0 {
+		first := strings.ToUpper(s[:1]) // 将首字母转化为大写
+		return first + s[1:]
+	}
+	return s
 }
 
 func GetFileSuffix(s string) string {
@@ -81,7 +89,7 @@ func SnowFlakeId() int64 {
 	}
 }
 
-//数组去重来源网络
+// 数组去重来源网络
 func RemoveDuplicatesAndEmpty(a []string) (ret []string) {
 	a_len := len(a)
 	for i := 0; i < a_len; i++ {
@@ -106,7 +114,7 @@ func FilterEmoji(content string) string {
 	return newContent
 }
 
-//判断是否为纯数字
+// 判断是否为纯数字
 func IsNumber(number string) bool {
 	for _, v := range number {
 		if '9' < v || v < '0' {
@@ -157,4 +165,3 @@ func AddslashesAllString(data map[string]interface{}) {
 		}
 	}
 }
-
