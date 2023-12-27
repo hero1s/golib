@@ -58,7 +58,7 @@ func TestMgo(t *testing.T) {
 
 	//find documents with page and limit
 	var resultWithPage []Data
-	err = FindPage(database, collection, 0, 4, nil, bson.M{"_id": 0}, &resultWithPage)
+	err = FindPage(database, collection, 0, 4, nil, bson.M{"_id": 0}, &resultWithPage, nil)
 	fmt.Println("find docs with page and limit", resultWithPage)
 
 	//find the cursor
