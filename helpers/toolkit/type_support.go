@@ -2,19 +2,19 @@ package toolkit
 
 import "reflect"
 
-func isFunction(f interface{}) bool {
+func IsFunction(f interface{}) bool {
 	actual := reflect.TypeOf(f)
 	return actual.Kind() == reflect.Func && actual.NumIn() == 0 && actual.NumOut() > 0
 }
 
-func isChan(a interface{}) bool {
-	if isNil(a) {
+func IsChan(a interface{}) bool {
+	if IsNil(a) {
 		return false
 	}
 	return reflect.TypeOf(a).Kind() == reflect.Chan
 }
 
-func isNil(a interface{}) bool {
+func IsNil(a interface{}) bool {
 	if a == nil {
 		return true
 	}
