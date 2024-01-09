@@ -9,9 +9,9 @@ import (
 )
 
 func TestLogger(t *testing.T) {
-	SetLogger(conf.WithLogType(conf.LogJsontype), //打印json格式
+	InitLogger(conf.WithLogType(conf.LogJsontype), //打印json格式
 		conf.WithProjectName("k3日志"),       //设置项目名称
-		conf.WithFilename("log.Warntxt"),       //设置输出文件名,或输出的路径
+		conf.WithFilename("log.Warntxt"),   //设置输出文件名,或输出的路径
 		conf.WithLogLevel(conf.ErrorLevel), //设置日志级别,默认debug
 		conf.WithMaxAge(30),                //日志保存天数,默认30天
 		conf.WithMaxSize(512),              //多少M进行分隔日志,默认100M
@@ -29,7 +29,7 @@ func TestLogger(t *testing.T) {
 func BenchmarkInfo(t *testing.B) {
 	t.ResetTimer()
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	SetLogger(conf.WithLogType(conf.LogJsontype), //打印json格式
+	InitLogger(conf.WithLogType(conf.LogJsontype), //打印json格式
 		conf.WithProjectName("k3日志"),      //设置项目名称
 		conf.WithFilename("log.txt"),      //设置输出文件名,或输出的路径
 		conf.WithLogLevel(conf.InfoLevel), //设置日志级别,默认debug
@@ -44,7 +44,7 @@ func BenchmarkInfo(t *testing.B) {
 	}
 }
 func TestDebug(t *testing.T) {
-	SetLogger(conf.WithIsStdOut(true),
+	InitLogger(conf.WithIsStdOut(true),
 		conf.WithLogType(conf.LogJsontype))
 	Debug("ddd", 200, "aa", 2001, "bb")
 }
@@ -66,6 +66,6 @@ func TestDump(t *testing.T) {
 		Name string
 		Age  int
 	}
-	SetLogger(conf.WithIsStdOut(true))
+	InitLogger(conf.WithIsStdOut(true))
 	Dump("name", "dump", "s", s{Name: "k3", Age: 2})
 }

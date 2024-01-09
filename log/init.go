@@ -13,13 +13,13 @@ func CurLogger() *Loger {
 }
 
 // 设置
-func SetLogger(opts ...conf.Option) {
+func InitLogger(opts ...conf.Option) {
 	l = zaplog.New(opts...)
 }
 
 // 快捷使用
-func NewInit(projectName, filePath string, stdout bool) {
-	SetLogger(conf.WithProjectName(projectName),
+func EasyInit(projectName, filePath string, stdout bool) {
+	InitLogger(conf.WithProjectName(projectName),
 		conf.WithFilename(filePath),
 		conf.WithLogType(conf.LogJsontype),
 		conf.WithIsStdOut(stdout))
