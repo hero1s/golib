@@ -3,10 +3,10 @@ package alisdk
 import (
 	"errors"
 	"fmt"
-	"github.com/hero1s/golib/log"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/denverdino/aliyungo/ram"
 	"github.com/denverdino/aliyungo/sts"
+	"github.com/hero1s/golib/log"
 	"io"
 	"path/filepath"
 )
