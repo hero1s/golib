@@ -8,7 +8,9 @@ type Config struct {
 	// http export port. :8080
 	Port string
 	// interface limit
-	Limit *limit.Config
+	Limit      *limit.Config
+	SslCrtPath string
+	SslKeyPath string
 }
 
 type RecoverInfo struct {
@@ -18,4 +20,3 @@ type RecoverInfo struct {
 	Query interface{} `json:"query"`
 	Stack string      `json:"stack"`
 }
-
