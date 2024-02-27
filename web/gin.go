@@ -2,10 +2,11 @@ package web
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 
-	"github.com/hero1s/golib/web/limit"
 	"github.com/gin-gonic/gin"
+	"github.com/hero1s/golib/web/limit"
 )
 
 type GinEngine struct {
@@ -28,10 +29,19 @@ func InitGinServer(c *Config) *GinEngine {
 	return engine
 }
 
-func (e *GinEngine) Start() {
+func (e *GinEngine) Start(crtPath, keyPath string) {
 	go func() {
-		if err := e.Gin.Run(e.addr); err != nil {
-			panic(fmt.Sprintf("web server addr(%s) run error(%+v).", e.addr, err))
+		if len(crtPath) > 1 && len(keyPath) > 1 {
+			crtPath, _ := filepath.Abs(crtPath)
+			keyPath, _ := filepath.Abs(keyPath)
+
+			if err := e.Gin.RunTLS(e.addr, crtPath, keyPath); err != nil {
+				panic(fmt.Sprintf("https web server addr(%s) run error(%+v).", e.addr, err))
+			}
+		} else {
+			if err := e.Gin.Run(e.addr); err != nil {
+				panic(fmt.Sprintf("http web server addr(%s) run error(%+v).", e.addr, err))
+			}
 		}
 	}()
 }
