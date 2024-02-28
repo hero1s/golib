@@ -44,7 +44,7 @@ func TestInitServer(t *testing.T) {
 	admin.Init(g.Gin, "123")
 
 	utils.RunMain(func() error {
-		g.Start()
+		g.Start(c)
 		return nil
 	}, func() {
 
