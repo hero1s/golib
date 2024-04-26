@@ -1,7 +1,8 @@
 package web
 
 import (
-	"fmt"
+	"github.com/hero1s/golib/log"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -35,11 +36,13 @@ func (e *GinEngine) Start(c *Config) {
 			crtPath, _ := filepath.Abs(c.SslCrtPath)
 			keyPath, _ := filepath.Abs(c.SslKeyPath)
 			if err := e.Gin.RunTLS(e.addr, crtPath, keyPath); err != nil {
-				panic(fmt.Sprintf("https web server addr(%s) run error(%+v).", e.addr, err))
+				log.Errorf("https web server addr(%s) run error(%+v).", e.addr, err)
+				os.Exit(0)
 			}
 		} else {
 			if err := e.Gin.Run(e.addr); err != nil {
-				panic(fmt.Sprintf("http web server addr(%s) run error(%+v).", e.addr, err))
+				log.Errorf("http web server addr(%s) run error(%+v).", e.addr, err)
+				os.Exit(0)
 			}
 		}
 	}()
