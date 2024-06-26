@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dablelv/cyan/internal"
+	"github.com/hero1s/golib/internal"
 )
 
 func TestBool(t *testing.T) {
