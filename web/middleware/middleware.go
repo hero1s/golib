@@ -135,19 +135,22 @@ func (w bodyLogWriter) Write(b []byte) (int, error) {
 }
 
 // 日志记录到文件
-func LogRequest() gin.HandlerFunc {
+func LogRequest(fixFile bool, messageSize int) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.EscapedPath()
 		method := c.Request.Method
 		ip := c.ClientIP()
 
 		var bodyBytes []byte
-		if c.Request.Body != nil {
-			bodyBytes, _ = ioutil.ReadAll(c.Request.Body)
+		if fixFile && strings.HasPrefix(c.Request.Header.Get("Content-Type"), "multipart/form-data") {
+			bodyBytes = ([]byte)("file context has filter")
+		} else {
+			if c.Request.Body != nil {
+				bodyBytes, _ = ioutil.ReadAll(c.Request.Body)
+			}
+			// 读取后写回
+			c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 		}
-		// 读取后写回
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-
 		blw := &bodyLogWriter{
 			body:           bytes.NewBufferString(""),
 			ResponseWriter: c.Writer,
@@ -157,16 +160,20 @@ func LogRequest() gin.HandlerFunc {
 		c.Next()
 		end := time.Now()
 		latency := end.Sub(start)
-		code, message := c.Writer.Status(), blw.body.Bytes()
-
+		var message string
+		if blw.body.Len() < messageSize {
+			message = string(blw.body.Bytes())
+		} else {
+			message = string(blw.body.Bytes())[:messageSize] + "..."
+		}
 		log.Info(
-			zap.Int("status", code),
+			zap.Int("status", c.Writer.Status()),
 			zap.String("method", method),
 			zap.String("path", path),
 			zap.String("query", string(bodyBytes)),
 			zap.String("ip", ip),
 			zap.Any("head", c.Request.Header),
-			zap.String("resp", string(message)),
+			zap.String("resp", message),
 			zap.Duration("latency", latency),
 			zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
 		)
