@@ -27,7 +27,7 @@ func TestInitServer(t *testing.T) {
 	}
 
 	g := InitGinServer(c)
-	g.Gin.Use(middleware.LogRequest(false))
+	g.Gin.Use(middleware.LogRequest(nil, nil))
 	//g.Gin.Use(JWTAuth())
 	g.Register(initRoute)
 

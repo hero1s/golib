@@ -135,14 +135,16 @@ func (w bodyLogWriter) Write(b []byte) (int, error) {
 }
 
 // 日志记录到文件
-func LogRequest(fixFile bool, messageSize int) gin.HandlerFunc {
+type FilterFunc func(c *gin.Context) bool
+
+func LogRequest(filterIn, filterOut FilterFunc) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		path := c.Request.URL.EscapedPath()
 		method := c.Request.Method
 		ip := c.ClientIP()
 
 		var bodyBytes []byte
-		if fixFile && strings.HasPrefix(c.Request.Header.Get("Content-Type"), "multipart/form-data") {
+		if filterIn != nil && filterIn(c) {
 			bodyBytes = ([]byte)("file context has filter")
 		} else {
 			if c.Request.Body != nil {
@@ -161,10 +163,10 @@ func LogRequest(fixFile bool, messageSize int) gin.HandlerFunc {
 		end := time.Now()
 		latency := end.Sub(start)
 		var message string
-		if blw.body.Len() < messageSize {
-			message = string(blw.body.Bytes())
+		if filterOut != nil && filterOut(c) {
+			message = "resp message has filter"
 		} else {
-			message = string(blw.body.Bytes())[:messageSize] + "..."
+			message = string(blw.body.Bytes())
 		}
 		log.Info(
 			zap.Int("status", c.Writer.Status()),
