@@ -15,8 +15,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/denverdino/aliyungo v0.0.0-20201110010600-f7c7d0e1d041
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/gansidui/geohash v0.0.0-20141019080235-ebe5ba447f34
-	github.com/gansidui/nearest v0.0.0-20141019122829-a5d0cde6ef14
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-redis/redis/v7 v7.4.0

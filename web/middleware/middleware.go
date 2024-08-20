@@ -177,7 +177,7 @@ func LogRequest(filterIn, filterOut FilterFunc) gin.HandlerFunc {
 			zap.Any("head", c.Request.Header),
 			zap.String("resp", message),
 			zap.Duration("latency", latency),
-			zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
+			//zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
 		)
 	}
 }
