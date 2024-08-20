@@ -10,7 +10,7 @@ func init() {
 	rand.Seed(time.Now().Unix())
 }
 
-//随机值在闭区间[min,max]
+// 随机值在闭区间[min,max]
 func Random(min, max int64) int64 {
 	max += 1
 	return rand.Int63n(max-min) + min
@@ -66,27 +66,13 @@ func MergeSliceRemoveDuplicate(slice1, slice2 []int) (merged []int) {
 	return merged
 }
 
-func MinInt(x, y int64) int64 {
-	if x < y {
-		return x
-	}
-	return y
-}
-
-func MaxInt(x, y int64) int64 {
-	if x > y {
-		return x
-	}
-	return y
-}
-
-//保留N位小数
+// 保留N位小数
 func Decimal(value float64, places int32) float64 {
 	v1, _ := decimal.NewFromFloat(value).Round(places).Float64()
 	return v1
 }
 
-//打乱一个uint数组
+// 打乱一个uint数组
 func RandomUint(uints []uint64) {
 	for i := len(uints) - 1; i > 0; i-- {
 		num := rand.Intn(i + 1)
@@ -94,7 +80,7 @@ func RandomUint(uints []uint64) {
 	}
 }
 
-//打乱一个string数组
+// 打乱一个string数组
 func RandomString(strings []string) {
 	for i := len(strings) - 1; i > 0; i-- {
 		num := rand.Intn(i + 1)

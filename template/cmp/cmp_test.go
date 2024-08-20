@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/dablelv/cyan/internal"
+	"github.com/hero1s/golib/internal"
 	"golang.org/x/exp/constraints"
 )
 

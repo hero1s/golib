@@ -3,7 +3,7 @@ package cmp
 import (
 	"testing"
 
-	"github.com/dablelv/cyan/internal"
+	"github.com/hero1s/golib/internal"
 )
 
 func TestVerGTVer(t *testing.T) {
