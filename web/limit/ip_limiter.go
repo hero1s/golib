@@ -15,23 +15,18 @@ type IPRateLimiter struct {
 	b   int
 }
 
-var (
-	IpRateLimiter *IPRateLimiter
-)
-
 // NewIPRateLimiter .
-//func SetupIPRateLimiter(r rate.Limit, b int) (error) {
-func SetupIPRateLimiter(CountPerSecond int) error {
+func NewIPRateLimiter(CountPerSecond int) *IPRateLimiter {
 	var r rate.Limit
 	r = 1
 	b := CountPerSecond
-	IpRateLimiter = &IPRateLimiter{
+	IpRateLimiter := &IPRateLimiter{
 		ips: make(map[string]*rate.Limiter),
 		mu:  &sync.RWMutex{},
 		r:   r,
 		b:   b,
 	}
-	return nil
+	return IpRateLimiter
 }
 
 // AddIP creates a new rate limiter and adds it to the ips map,
@@ -58,11 +53,11 @@ func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
 	return limiter
 }
 
-func (r *IPRateLimiter) GinLimit(CountPerSecond int) gin.HandlerFunc {
-	SetupIPRateLimiter(CountPerSecond)
+func GinIpLimit(CountPerSecond int) gin.HandlerFunc {
+	limiter := NewIPRateLimiter(CountPerSecond)
 	return func(c *gin.Context) {
 		ipAddr := util.GetRealIp(c)
-		limiter := IpRateLimiter.GetLimiter(ipAddr)
+		limiter := limiter.GetLimiter(ipAddr)
 		if !limiter.Allow() {
 			c.AbortWithStatus(http.StatusTooManyRequests)
 		} else {
