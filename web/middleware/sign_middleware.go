@@ -8,7 +8,7 @@ import (
 	"github.com/hero1s/golib/helpers/crypto"
 	"github.com/hero1s/golib/i18n"
 	"github.com/hero1s/golib/log"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"reflect"
 	"sort"
@@ -69,7 +69,7 @@ headKeys:head里面需要校验的字段
 3:对map的key排序后拼接字符串str += key + values
 4:sign = md5(str + bodystr + securet + ts)
 */
-func CheckParam(securet string, headKeys []string) gin.HandlerFunc {
+func CheckParam(securet string, headKeys []string, filterJson bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		cliSign := c.Request.Header.Get("Sign")
 		if cliSign == "" {
@@ -84,11 +84,13 @@ func CheckParam(securet string, headKeys []string) gin.HandlerFunc {
 		params := make(map[string]interface{})
 		//body 参数转json
 		var bodyBytes []byte
-		if c.Request.Body != nil {
-			bodyBytes, _ = ioutil.ReadAll(c.Request.Body)
+		if !filterJson || c.GetHeader("Content-Type") == "application/json" {
+			if c.Request.Body != nil {
+				bodyBytes, _ = io.ReadAll(c.Request.Body)
+			}
+			// 读取后写回
+			c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
 		}
-		// 读取后写回
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
 		//添加head参数
 		for _, k := range headKeys {
 			params[k] = c.GetHeader(k)
