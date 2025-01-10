@@ -84,7 +84,7 @@ func CheckParam(securet string, headKeys []string, filterJson bool) gin.HandlerF
 		params := make(map[string]interface{})
 		//body 参数转json
 		var bodyBytes []byte
-		if !filterJson || c.GetHeader("Content-Type") == "application/json" {
+		if !filterJson || (filterJson && c.GetHeader("Content-Type") == "application/json") {
 			if c.Request.Body != nil {
 				bodyBytes, _ = io.ReadAll(c.Request.Body)
 			}
