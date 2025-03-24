@@ -12,12 +12,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/hero1s/golib/log"
+	lconf "github.com/hero1s/golib/log/conf"
 	"github.com/hero1s/golib/web/limit"
 )
 
 func TestInitServer(t *testing.T) {
 	// 需要测试请自行解开注释测试
-
+	initLog(true)
+	log.Infof("start test init server")
 	c := &Config{
 		Port: ":2233",
 		Limit: &limit.Config{
@@ -71,4 +73,13 @@ func initRoute(g *gin.Engine) {
 	g.GET("/d", func(c *gin.Context) {
 		cp.Success(c, "d")
 	})
+}
+
+func initLog(isDev bool) {
+	log.InitLogger(
+		lconf.WithProjectName(""),
+		lconf.WithIsStdOut(!isDev),
+		lconf.WithFilename("logs/api_svr/api.log"),
+		lconf.WithMaxAge(10),
+		lconf.WithMaxSize(50), lconf.WithProjectName("test"))
 }

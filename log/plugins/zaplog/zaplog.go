@@ -1,8 +1,8 @@
 package zaplog
 
 import (
-	"github.com/hero1s/golib/log/conf"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/hero1s/golib/log/conf"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -52,14 +52,14 @@ var encoderConfig = zapcore.EncoderConfig{
 
 func New(opts ...conf.Option) *Log {
 	o := &conf.Options{
-		Filename:   conf.Filename,
-		LogLevel:   conf.LogLevel,
-		MaxSize:    conf.MaxSize,
-		MaxAge:     conf.MaxAge,
-		Stacktrace: conf.Stacktrace,
-		IsStdOut:   conf.IsStdOut,
-		//ProjectName: conf.ProjectName,
-		LogType: conf.LogNormalType,
+		Filename:    conf.Filename,
+		LogLevel:    conf.LogLevel,
+		MaxSize:     conf.MaxSize,
+		MaxAge:      conf.MaxAge,
+		Stacktrace:  conf.Stacktrace,
+		IsStdOut:    conf.IsStdOut,
+		ProjectName: conf.ProjectName,
+		LogType:     conf.LogNormalType,
 	}
 
 	for _, opt := range opts {
@@ -86,7 +86,7 @@ func New(opts ...conf.Option) *Log {
 
 	var enc zapcore.Encoder
 	if o.LogType == conf.LogNormalType {
-		enc = zapcore.NewConsoleEncoder(encoderConfig)
+		enc = &customEncoder{Encoder: zapcore.NewConsoleEncoder(encoderConfig), name: o.ProjectName}
 	} else {
 		enc = zapcore.NewJSONEncoder(encoderConfig)
 	}
@@ -110,7 +110,7 @@ func New(opts ...conf.Option) *Log {
 
 }
 
-//拼接完整的数组
+// 拼接完整的数组
 func CoupArray(kv []interface{}) []interface{} {
 	if len(kv)%2 != 0 {
 		kv = append(kv, kv[len(kv)-1])
@@ -177,6 +177,6 @@ func (l *Log) Dump(keysAndValues ...interface{}) {
 }
 
 func (l *Log) Write(p []byte) (n int, err error) {
-	l.logger.Errorf("%v",string(p))
+	l.logger.Errorf("%v", string(p))
 	return len(p), nil
 }
