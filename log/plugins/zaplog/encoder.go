@@ -19,7 +19,7 @@ func (c *customEncoder) EncodeEntry(ent zapcore.Entry, fields []zapcore.Field) (
 		return nil, err
 	}
 	// 获取时间戳
-	timestamp := ent.Time.UTC().Format("2006-01-02 15:04:05.000")
+	timestamp := ent.Time.Local().Format("2006-01-02 15:04:05.000")
 	// 获取日志级别
 	level := ent.Level.CapitalString()
 	// 获取日志消息
