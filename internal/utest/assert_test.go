@@ -1,4 +1,4 @@
-package internal
+package utest
 
 import (
 	"testing"
@@ -46,5 +46,4 @@ func TestAssert(t *testing.T) {
 
 	assert.IsNil(nil)
 	assert.IsNotNil("abc")
-
 }
