@@ -7,9 +7,16 @@ import (
 	"github.com/hero1s/golib/log"
 	"os"
 	"os/signal"
+	"sync"
 )
 
-//独立进程启动
+var (
+	endChan chan bool
+	mu      sync.Mutex
+	once    sync.Once
+)
+
+// 独立进程启动
 func Run(mods ...module.Module) {
 	log.Info("ConnSvr starting up")
 	// module
@@ -27,15 +34,21 @@ func Run(mods ...module.Module) {
 	// close
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, os.Kill)
-	sig := <-c
-	log.Infof("ConnSvr closing down (signal: %v)", sig)
-	console.Destroy()
-	cluster.Destroy()
-	module.Destroy()
+
+	defer func() {
+		sig := <-c
+		log.Infof("ConnSvr closing down (signal: %v)", sig)
+
+		console.Destroy()
+		cluster.Destroy()
+		module.Destroy()
+	}()
+
+	select {}
 }
 
-//内部模块启动
-func RunInside(end chan bool, mods ...module.Module) {
+// 内部模块启动
+func RunInside(mods ...module.Module) {
 	log.Info("ConnSvr starting up")
 
 	// module
@@ -49,11 +62,20 @@ func RunInside(end chan bool, mods ...module.Module) {
 
 	// console
 	console.Init()
-
+	once.Do(func() {
+		endChan = make(chan bool, 1)
+	})
 	// close
-	sig := <-end
+	sig := <-endChan
 	log.Infof("ConnSvr closing down (signal: %v)", sig)
 	console.Destroy()
 	cluster.Destroy()
 	module.Destroy()
+}
+func Stop() {
+	mu.Lock()
+	defer mu.Unlock()
+	if endChan != nil {
+		endChan <- true
+	}
 }
