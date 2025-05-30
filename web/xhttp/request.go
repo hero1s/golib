@@ -84,6 +84,7 @@ func Request(method string, u string, opts ...RequestOption) (*XResponse, error)
 	}
 	if o.Body != nil {
 		req.Body = io.NopCloser(bytes.NewReader(o.Body))
+		req.ContentLength = int64(len(o.Body))
 	}
 
 	if o.RetryOptions != nil {
