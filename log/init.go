@@ -1,12 +1,16 @@
 package log
 
 import (
+	"fmt"
+	"github.com/hero1s/golib/helpers/webhook"
 	"github.com/hero1s/golib/log/conf"
 	"github.com/hero1s/golib/log/plugins/zaplog"
+	"time"
 )
 
 // 默认
 var l Loger = zaplog.New()
+var larkUrl = ""
 
 func CurLogger() *Loger {
 	return &l
@@ -15,6 +19,10 @@ func CurLogger() *Loger {
 // 设置
 func InitLogger(opts ...conf.Option) {
 	l = zaplog.New(opts...)
+}
+
+func SetLarkUrl(url string) {
+	larkUrl = url
 }
 
 // 快捷使用
@@ -54,16 +62,19 @@ func Warn(keysAndValues ...interface{}) {
 // 日志等级 错误时使用
 func Error(keysAndValues ...interface{}) {
 	l.Error(keysAndValues...)
+	SendLarkf("%v", keysAndValues)
 }
 
 // 日志等级 恐慌时使用
 func Panic(keysAndValues ...interface{}) {
 	l.Panic(keysAndValues...)
+	SendLarkf("%v", keysAndValues)
 }
 
 // 日志等级 致命时使用
 func Fatal(keysAndValues ...interface{}) {
 	l.Fatal(keysAndValues...)
+	SendLarkf("%v", keysAndValues)
 }
 
 // 日志等级 详细结构类型,调试利器
@@ -89,14 +100,29 @@ func Warnf(template string, args ...interface{}) {
 // 错误的
 func Errorf(template string, args ...interface{}) {
 	l.Errorf(template, args...)
+	SendLarkf(template, args...)
 }
 
 // 恐慌的
 func Panicf(template string, args ...interface{}) {
 	l.Panicf(template, args...)
+	SendLarkf(template, args...)
 }
 
 // 致命的
 func Fatalf(template string, args ...interface{}) {
 	l.Fatalf(template, args...)
+	SendLarkf(template, args...)
+}
+
+// 发送错误日志到飞书
+func SendLarkf(template string, args ...interface{}) {
+	if larkUrl != "" {
+		go func() {
+			message := fmt.Sprintf(template, args...)
+			timestamp := time.Now().Format("2006-01-02 15:04:05") // 标准时间格式
+			messageWithTimestamp := fmt.Sprintf("[%s] %s", timestamp, message)
+			webhook.SendLark(messageWithTimestamp, larkUrl)
+		}()
+	}
 }

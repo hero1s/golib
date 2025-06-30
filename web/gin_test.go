@@ -20,6 +20,7 @@ func TestInitServer(t *testing.T) {
 	// 需要测试请自行解开注释测试
 	initLog(true)
 	log.Infof("start test init server")
+	log.Errorf("test lark msg")
 	c := &Config{
 		Port: ":2233",
 		Limit: &limit.Config{
@@ -82,4 +83,5 @@ func initLog(isDev bool) {
 		lconf.WithFilename("logs/api_svr/api.log"),
 		lconf.WithMaxAge(10),
 		lconf.WithMaxSize(50), lconf.WithProjectName("test"))
+	log.SetLarkUrl("https://open.feishu.cn/open-apis/bot/v2/hook/cf68991a-0580-4d90-9ab5-2da9ed5f9308")
 }

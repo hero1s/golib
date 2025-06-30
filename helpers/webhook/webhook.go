@@ -2,7 +2,6 @@ package webhook
 
 import (
 	"encoding/json"
-	"github.com/hero1s/golib/log"
 	"github.com/hero1s/golib/web/xhttp"
 	"net/http"
 )
@@ -16,9 +15,8 @@ func SendLark(msg string, tokenUrl string) (bool, error) {
 		"content":  map[string]string{"text": msg},
 	}
 	buff, _ := json.Marshal(data)
-	resp, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
+	_, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
 	if err != nil {
-		log.Errorf("发送飞书消息失败:%v,%v", resp.StatusCode, err)
 		return false, err
 	}
 	return true, nil
@@ -38,9 +36,8 @@ func SendMsgToDingDing(msg string, tokenUrl string) (bool, error) {
 		"text":    m,
 	}
 	buff, _ := json.Marshal(data)
-	resp, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
+	_, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
 	if err != nil {
-		log.Errorf("发送钉钉消息失败:%v,%v", resp.StatusCode, err)
 		return false, err
 	}
 	return true, nil
@@ -60,9 +57,8 @@ func SendWechat(msg string, tokenUrl string) (bool, error) {
 		"text":    m,
 	}
 	buff, _ := json.Marshal(data)
-	resp, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
+	_, err := xhttp.Request("POST", tokenUrl, xhttp.WithBodyString(string(buff)), xhttp.WithHeader(headers))
 	if err != nil {
-		log.Errorf("发送钉钉消息失败:%v,%v", resp.StatusCode, err)
 		return false, err
 	}
 	return true, nil
