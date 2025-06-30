@@ -6,7 +6,7 @@ import (
 	"github.com/hero1s/golib/helpers/webhook"
 	"github.com/hero1s/golib/log/conf"
 	"github.com/hero1s/golib/log/plugins/zaplog"
-	"os"
+	"runtime"
 	"time"
 )
 
@@ -14,7 +14,6 @@ import (
 var l Loger = zaplog.New()
 var larkUrl = ""
 var localIP = "127.0.0.1"
-var curDir = ""
 
 func CurLogger() *Loger {
 	return &l
@@ -27,8 +26,7 @@ func InitLogger(opts ...conf.Option) {
 
 func SetLarkUrl(url string) {
 	larkUrl = url
-	localIP = ip.LocalIP()
-	curDir, _ = os.Getwd()
+	localIP = ip.InternalIP()
 }
 
 // 快捷使用
@@ -124,12 +122,18 @@ func Fatalf(template string, args ...interface{}) {
 // 发送错误日志到飞书
 func SendLarkf(template string, args ...interface{}) {
 	if larkUrl != "" {
-		go func() {
-			message := fmt.Sprintf(template, args...)
+		// 获取调用文件名和行号
+		_, file, line, ok := runtime.Caller(2) // 调用层级为1，表示直接调用此函数的地方
+		if !ok {
+			file = "unknown"
+			line = 0
+		}
+		message := fmt.Sprintf(template, args...)
+		go func(file string, line int, message string) {
 			timestamp := time.Now().Format("2006-01-02 15:04:05") // 标准时间格式
-			// 构造带时间戳、IP和路径的日志信息
-			messageWithMeta := fmt.Sprintf("[%s][%s][%s] %s", timestamp, localIP, curDir, message)
+			// 构造带时间戳、IP、路径、文件名及行号的日志信息
+			messageWithMeta := fmt.Sprintf("[%s][%s][%s:%d] %s", timestamp, localIP, file, line, message)
 			webhook.SendLark(messageWithMeta, larkUrl)
-		}()
+		}(file, line, message)
 	}
 }
