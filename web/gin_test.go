@@ -83,5 +83,5 @@ func initLog(isDev bool) {
 		lconf.WithFilename("logs/api_svr/api.log"),
 		lconf.WithMaxAge(10),
 		lconf.WithMaxSize(50), lconf.WithProjectName("test"))
-	log.SetLarkUrl("https://open.feishu.cn/open-apis/bot/v2/hook/cf68991a-0580-4d90-9ab5-2da9ed5f9308")
+	log.SetLarkUrl("https://open.feishu.cn/open-apis/bot/v2/hook/09229461-36e5-4cd6-be8d-e55d3eb794a8")
 }

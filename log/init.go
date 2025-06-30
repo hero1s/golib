@@ -2,15 +2,19 @@ package log
 
 import (
 	"fmt"
+	"github.com/hero1s/golib/helpers/ip"
 	"github.com/hero1s/golib/helpers/webhook"
 	"github.com/hero1s/golib/log/conf"
 	"github.com/hero1s/golib/log/plugins/zaplog"
+	"os"
 	"time"
 )
 
 // 默认
 var l Loger = zaplog.New()
 var larkUrl = ""
+var localIP = "127.0.0.1"
+var curDir = ""
 
 func CurLogger() *Loger {
 	return &l
@@ -23,6 +27,8 @@ func InitLogger(opts ...conf.Option) {
 
 func SetLarkUrl(url string) {
 	larkUrl = url
+	localIP = ip.LocalIP()
+	curDir, _ = os.Getwd()
 }
 
 // 快捷使用
@@ -121,8 +127,9 @@ func SendLarkf(template string, args ...interface{}) {
 		go func() {
 			message := fmt.Sprintf(template, args...)
 			timestamp := time.Now().Format("2006-01-02 15:04:05") // 标准时间格式
-			messageWithTimestamp := fmt.Sprintf("[%s] %s", timestamp, message)
-			webhook.SendLark(messageWithTimestamp, larkUrl)
+			// 构造带时间戳、IP和路径的日志信息
+			messageWithMeta := fmt.Sprintf("[%s][%s][%s] %s", timestamp, localIP, curDir, message)
+			webhook.SendLark(messageWithMeta, larkUrl)
 		}()
 	}
 }
