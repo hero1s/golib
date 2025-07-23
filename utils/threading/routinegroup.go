@@ -23,13 +23,13 @@ func (g *RoutineGroup) Run(fn func()) {
 
 // Don't reference the variables from outside,
 // because outside variables can be changed by other goroutines
-func (g *RoutineGroup) RunSafe(fn func()) {
+func (g *RoutineGroup) RunSafe(fn func(), pcallback func(stack string), cleanups ...func()) {
 	g.waitGroup.Add(1)
 
 	GoSafe(func() {
 		defer g.waitGroup.Done()
 		fn()
-	})
+	}, pcallback, cleanups...)
 }
 
 func (g *RoutineGroup) Wait() {

@@ -10,7 +10,9 @@ import (
 func TestRescue(t *testing.T) {
 	var count int32
 	assert.NotPanics(t, func() {
-		defer Recover(func() {
+		defer Recover(func(stack string) {
+			print("panic call back")
+		}, func() {
 			atomic.AddInt32(&count, 2)
 		}, func() {
 			atomic.AddInt32(&count, 3)

@@ -36,7 +36,7 @@ func TestRoutingGroupRunSafe(t *testing.T) {
 				panic("")
 			})
 			atomic.AddInt32(&count, 1)
-		})
+		}, func(stack string) {})
 	}
 
 	group.Wait()
