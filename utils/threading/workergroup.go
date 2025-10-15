@@ -15,7 +15,7 @@ func NewWorkerGroup(job func(), workers int) WorkerGroup {
 func (wg WorkerGroup) Start() {
 	group := NewRoutineGroup()
 	for i := 0; i < wg.workers; i++ {
-		group.RunSafe(wg.job)
+		group.Run(wg.job)
 	}
 	group.Wait()
 }
